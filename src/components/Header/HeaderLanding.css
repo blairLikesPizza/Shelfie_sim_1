@@ -1,0 +1,31 @@
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:700');
+
+.header_landing_container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100px;
+    background: #AB2A19;
+}
+
+.landing_logo_container {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    width: 507px;
+    margin-top: 18px;
+}
+
+.landing_logo_container p {
+    font-size: 30px;
+    color: white;
+    font-family: 'Open Sans', sans-serif;
+    font-weight: bold;
+}
+
+.landing_header_logo {
+    height: 50px;
+    margin-right: 10px;
+}
