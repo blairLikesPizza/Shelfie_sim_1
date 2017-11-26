@@ -1,23 +1,32 @@
 import React, { Component } from 'react';
-import './HeaderBin.css';
+import './NewInventoryHeader.css';
 import { Link } from 'react-router-dom'
 
-class HeaderBinD2 extends Component {
+class NewInventoryHeaderShelfC extends Component {
+    constructor(props){
+        super(props);
+
+        this.state = {
+            shelfId: "Shelf C",
+            binId: this.props.id
+        }
+    }
+
     render() {
         return (
             <div className="bin_header_root">
-              <Link to="/shelves/shelfD">
+              <Link to="/shelfC">
                 <div className="bin_header_container">
                     <Link to="/"> <div className="bin_logo_container">
                         <img className="bin_header_logo" src="https://raw.githubusercontent.com/DevMountain/simulation-1/master/assets/logo.png" alt="" />
                     </div>
                     </Link>
-                    <p>Shelf D</p>
+                    <p>{this.state.shelfId}</p>
                 </div>
                 </Link>
-                <p>Bin 2</p>
+                <p>Add to Bin {this.state.binId}</p>
             </div>
         )
     }
 }
-export default HeaderBinD2
+export default NewInventoryHeaderShelfC;

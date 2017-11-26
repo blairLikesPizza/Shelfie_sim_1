@@ -9,10 +9,10 @@ class Landing extends Component {
       <div className="App">
           <HeaderLanding />
         <div className="shelf_link_container">
-          <Link to="/shelves/shelfA"><p>Shelf A</p></Link>
-          <Link to="/shelves/shelfB"><p>Shelf B</p></Link>
-          <Link to="/shelves/shelfC"><p>Shelf C</p></Link>
-          <Link to="/shelves/shelfD"><p>Shelf D</p></Link>
+          <Link to="/shelfA"><p>Shelf A</p></Link>
+          <Link to="/shelfB"><p>Shelf B</p></Link>
+          <Link to="/shelfC"><p>Shelf C</p></Link>
+          <Link to="/shelfD"><p>Shelf D</p></Link>
         </div>
       </div>
     );

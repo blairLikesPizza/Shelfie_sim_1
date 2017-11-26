@@ -4,3 +4,4 @@ SET binName = $2,
     itemName = $4,
     itemPrice = $5
 WHERE id = $1
+returning *;
