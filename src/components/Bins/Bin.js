@@ -4,27 +4,60 @@ import HeaderBinsA from '../Header/HeaderBinsA.js';
 import HeaderBinsB from '../Header/HeaderBinsB.js';
 import HeaderBinsC from '../Header/HeaderBinsC.js';
 import HeaderBinsD from '../Header/HeaderBinsD.js';
+import { Link } from 'react-router-dom';
 import axios from 'axios';
 
-
+// 42H
 class Bin extends Component {
     constructor(props) {
         super(props);
 
         this.state = {
+            // 42J, 42K
             binName: 'Bin' + this.props.match.params.id[1],
             shelfId: 'Shelf ' + this.props.match.params.id[0],
             itemName: '',
-            itemPrice: 0.00
+            itemPrice: 0.00,
+            edit: false,
         }
         this.updateBin = this.updateBin.bind(this);
         this.updateHeader = this.updateHeader.bind(this);
-        this.updateButtons = this.updateButtons.bind(this);
+        this.allowEdit = this.allowEdit.bind(this);
+        this.disableEdit = this.disableEdit.bind(this);
+        this.saveButtonHandler = this.saveButtonHandler.bind(this);
+        this.deleteBin = this.deleteBin.bind(this);
+        this.getBin = this.getBin.bind(this);
     }
-
+// 39C, 44E
     componentDidMount() {
         this.updateHeader()
-        this.updateButtons()
+        this.getBin()
+    }
+
+    allowEdit() {
+        this.setState({
+            edit: true
+        })
+    }
+
+    disableEdit() {
+        this.setState({
+            edit: false
+        })
+    }
+
+    getBin() {
+        // 44C, 44D
+        axios.get('/api/bin/' + this.props.match.params.id)
+            .then((response) => {
+                console.log(response)
+                this.setState({
+                    binName: response.data[0].binname,
+                    shelfId: response.data[0].shelfid,
+                    itemName: response.data[0].itemname,
+                    itemPrice: response.data[0].itemprice
+                })
+            })
     }
 
     nameChange(value) {
@@ -40,13 +73,31 @@ class Bin extends Component {
             itemPrice: value
         })
     }
-
+// 36D, 36E
     updateBin() {
-        axios.put('/api/bin/' + this.state.id, this.state)
+        axios.put('/api/bin/' + this.props.match.params.id, this.state)
             .then((response) => {
-                console.log(response)
+                console.log("update response", response)
+                this.setState({
+                    binName: response.data[0].binname,
+                    shelfId: response.data[0].shelfid,
+                    itemName: response.data[0].itemname,
+                    itemPrice: response.data[0].itemprice
+                })
 
             })
+    }
+
+    deleteBin() {
+        axios.delete('/api/bin/' + this.props.match.params.id, this.state)
+            .then((response) => {
+                console.log(response)
+            })
+    }
+
+    saveButtonHandler() {
+        this.updateBin()
+        this.disableEdit()
     }
 
     updateHeader() {
@@ -64,32 +115,62 @@ class Bin extends Component {
         }
     }
 
-    updateButtons() {
-            return <button className="save_button" onClick={this.updateBin}>Save</button>
-        }
-
-
+// 36F
     render() {
-        return (
-            <div>
-                {this.updateHeader()}
+
+        let binInfo;
+        if (this.state.edit) {
+            binInfo = (
+                // 36G
                 <div className="bin_info_container">
                     <div className="bin_img_container">
                         <img className="bin_img" src="http://vectorblog.org/wp-content/uploads/2013/11/Rubiks-cube-shutterstock_156575030.jpg" alt="" />
                     </div>
                     <div className="input_button_container">
+
                         <div className="input_bars_container">
                             <p>Name</p>
-                            <input className="bin_input_name" onChange={(e) => this.nameChange(e.target.value)} />
+                            <input value={this.state.itemName} className="bin_input_name" onChange={(e) => this.nameChange(e.target.value)} />
                             <p>Price</p>
-                            <span>$</span><input className="bin_input_price" placeholder="0" onChange={(e) => this.priceChange(e.target.value)} />
+                            <span>$</span><input value={this.state.itemPrice} className="bin_input_price" placeholder="0" onChange={(e) => this.priceChange(e.target.value)} />
                         </div>
                         <div className="bin_button_container">
-                            <button className="edit_button" onClick={this.updateButtons}>Edit</button>
-                            <button className="delete_button">Delete</button>
+                            <button className="save_button" onClick={this.saveButtonHandler}>Save</button>
+                            <Link to={"/shelf" + this.props.match.params.id[0]}><button className="delete_button" onClick={this.deleteBin}>Delete</button></Link>
                         </div>
                     </div>
                 </div>
+            )
+
+        } else {
+            binInfo = (
+                <div className="bin_info_container">
+                    <div className="bin_img_container">
+                        <img className="bin_img" src="http://vectorblog.org/wp-content/uploads/2013/11/Rubiks-cube-shutterstock_156575030.jpg" alt="" />
+                    </div>
+                    <div className="input_button_container">
+
+
+                        <div className="input_bars_container_noedit">
+                            <div className="bin_input_name_noedit_header">Name</div>
+                            <div className="bin_input_name_noedit">{this.state.itemName}</div>
+                            <div className="bin_input_price_noedit_header">Price</div>
+
+                            <span>$</span><div className="bin_input_price_noedit">{this.state.itemPrice}</div>
+                        </div>
+                        <div className="bin_button_container_noedit">
+                            <button className="edit_button" onClick={this.allowEdit}>Edit</button>
+                            <Link to={"/shelf" + this.props.match.params.id[0]}><button className="delete_button" onClick={this.deleteBin}>Delete</button></Link>
+                        </div>
+                    </div>
+                </div>
+            )
+
+        }
+        return (
+            <div>
+                {this.updateHeader()}
+                {binInfo}
             </div>
         )
     }

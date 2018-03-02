@@ -1,2 +1,2 @@
 DELETE FROM bin
-WHERE id = $1
+WHERE shelfid = $1 AND binname = $2;

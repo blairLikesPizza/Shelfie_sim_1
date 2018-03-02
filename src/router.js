@@ -11,12 +11,13 @@ import NewInventoryShelfC from './components/NewInventory/NewInventoryShelfC.js'
 import NewInventoryShelfD from './components/NewInventory/NewInventoryShelfD.js';
 
 
-import { HashRouter as Router, Route } from 'react-router-dom';
+import { Switch, Route } from 'react-router-dom';
 
 export default(
-
-           <Router>
+// 42G
+           <Switch>
                <div>
+                   {/* 42F, 42H */}
                    <Route component={Landing} exact path='/'/>
                    <Route component={ShelfA} path='/shelfA' />
                    <Route component={ShelfB} path='/shelfB' />
@@ -28,5 +29,5 @@ export default(
                    <Route component={NewInventoryShelfC} path='/addinventoryC/:id' />
                    <Route component={NewInventoryShelfD} path='/addinventoryD/:id' />
                </div>
-           </Router>
+           </Switch>
 )

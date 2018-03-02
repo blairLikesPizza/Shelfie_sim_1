@@ -1,2 +1,2 @@
 select * from bin
-where id = $1;
+where binname = $1 AND shelfid = $2;

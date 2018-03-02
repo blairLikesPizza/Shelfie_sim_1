@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 class NewInventoryHeaderShelfA extends Component {
     constructor(props){
         super(props);
-
+// 36C
         this.state = {
             shelfId: "Shelf A",
             binId: this.props.id

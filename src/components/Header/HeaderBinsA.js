@@ -30,4 +30,6 @@ class HeaderBinsA extends Component {
         )
     }
 }
+
+// 37E-2
 export default HeaderBinsA

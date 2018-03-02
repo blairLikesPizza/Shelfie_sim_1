@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
 import './Shelf.css';
 import HeaderShelfA from '../Header/HeaderShelfA.js';
+// 42E
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 
 class ShelfA extends Component {
+// 36I
     constructor(props){
         super(props);
 
@@ -17,6 +19,7 @@ class ShelfA extends Component {
             Bin5: null
             
         }
+        // 37C
         this.getBins = this.getBins.bind(this)
         this.getBin1 = this.getBin1.bind(this);
         this.getBin2 = this.getBin2.bind(this);
@@ -86,7 +89,8 @@ class ShelfA extends Component {
 
     render() {
         return (
-            <div>
+            // 36H
+            <div> 
                 <HeaderShelfA />
                     
                         <div className="bin_link_container">

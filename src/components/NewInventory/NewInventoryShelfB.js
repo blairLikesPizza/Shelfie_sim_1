@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './NewInventory.css';
 import NewInventoryHeaderShelfB from '../Header/NewInventoryHeaderShelfB.js';
+import { Link } from 'react-router-dom';
 import axios from 'axios';
 
 class NewInventoryShelfB extends Component {
@@ -33,7 +34,7 @@ class NewInventoryShelfB extends Component {
     }
 
     addToInventory(){
-        axios.post('/api/bin/:id')
+        axios.post('/api/bin', this.state)
              .then((response) => {
                  console.log(response)
              })
@@ -51,7 +52,7 @@ class NewInventoryShelfB extends Component {
                         <input className="new_inventory_name_input" onChange={(e) => this.nameChange(e.target.value)}/>
                         <p>Price</p>
                         <span>$</span><input className="new_inventory_price_input" placeholder="0" onChange={(e) => this.priceChange(e.target.value)}/>
-                        <button className="add_to_inventory_button" onClick={this.addToInventory}>+ Add to Inventory</button>
+                        <Link to={"/shelf" + this.props.match.params.id[0]}><button className="add_to_inventory_button" onClick={this.addToInventory}>+ Add to Inventory</button></Link>
                     </div>
                 </div>
             </div>
